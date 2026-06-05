@@ -1,0 +1,22 @@
+name: artesano
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: artesano-postgres
+    environment:
+      POSTGRES_DB: artesano
+      POSTGRES_USER: artesano
+      POSTGRES_PASSWORD: artesano
+    ports:
+      - "5433:5432"
+    volumes:
+      - artesano-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U artesano -d artesano"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  artesano-postgres-data:
