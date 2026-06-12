@@ -24,10 +24,16 @@
         <module>sharedkernel</module>
         <module>infrastructure-postgres</module>
         <module>app</module>
+        <module>receta</module>
+        <module>producto</module>
+        <module>inventario</module>
+        <module>pedido</module>
+        <module>ingrediente</module>
+        <module>produccion</module>
     </modules>
 
     <properties>
-        <java.version>17</java.version>
+        <java.version>25</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Valores por defecto -->

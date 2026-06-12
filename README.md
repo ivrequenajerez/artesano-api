@@ -118,40 +118,37 @@ El proyecto sigue una orientación de arquitectura hexagonal, con separación en
 
 La intención es mantener el núcleo de negocio aislado de detalles externos como REST, PostgreSQL, frameworks, colas, proveedores o interfaces futuras.
 
-Estructura conceptual:
+Estructura Maven actual:
 
 ```txt
 artesano-api/
-├── sharedkernel/
-│   └── domain/
-│       ├── Dinero
-│       ├── UnidadMedida
-│       └── Porcentaje
-│
-├── producto/
-│   └── domain/
-│       ├── Producto
-│       └── ProductoId
-│
-├── receta/
-│   └── domain/
-│       ├── Receta
-│       └── IngredienteReceta
-│
-├── inventario/
-│   └── domain/
-│       ├── ItemInventario
-│       └── MovimientoStock
-│
-├── produccion/
-│   └── application/
-│       └── FinalizarProduccionPedidoUseCase
-│
-└── app/
-    └── Aplicación Spring Boot
+|-- app/
+|   `-- Aplicación Spring Boot y composición de la aplicación
+|-- sharedkernel/
+|   `-- Conceptos compartidos estables del dominio
+`-- infrastructure-postgres/
+    `-- Infraestructura PostgreSQL, MyBatis y migraciones Liquibase
 ```
 
-## Módulos principales
+Dentro de `app`, los contextos funcionales se organizan como paquetes principales:
+
+```txt
+com.artesano
+|-- producto
+|   `-- domain
+|-- receta
+|   `-- domain
+|-- inventario
+|   `-- domain
+`-- produccion
+    |-- application
+    `-- domain
+```
+
+Esta organización permite mantener una estructura modular por contexto de negocio sin convertir cada contexto en un módulo Maven independiente desde el inicio.
+Si un contexto crece lo suficiente o necesita límites de compilación más estrictos, puede extraerse más adelante a un módulo Maven propio.
+
+## Módulos y contextos principales
 
 ### Shared Kernel
 
@@ -533,10 +530,10 @@ La contabilidad del caos tiene mala prensa por motivos razonables.
 ### Fase 1: núcleo de dominio
 
 * Crear `sharedkernel/domain`.
-* Crear `producto/domain`.
-* Crear `receta/domain`.
-* Crear `inventario/domain`.
-* Crear `produccion/application`.
+* Crear `app/src/main/java/com/artesano/producto/domain`.
+* Crear `app/src/main/java/com/artesano/receta/domain`.
+* Crear `app/src/main/java/com/artesano/inventario/domain`.
+* Crear `app/src/main/java/com/artesano/produccion/application`.
 * Implementar `FinalizarProduccionPedidoUseCase`.
 
 ### Fase 2: persistencia

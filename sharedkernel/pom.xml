@@ -18,4 +18,12 @@
     <name>artesano-sharedkernel</name>
     <description>Conceptos compartidos mínimos del dominio</description>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
 </project>
